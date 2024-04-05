@@ -20,17 +20,18 @@ jobs:
 
       - name: Enable Flutter Web
         run: flutter config --enable-web
-        
+
       - name: Download Dependencies
         run: flutter pub get
 
       - name: Build
         run: flutter build web --base-href /flutter_pokedex/
-          
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
         with:
             deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
             publish_dir: ./build/web
+            force_orphan: true
+            commit_message: 'Publish to gh-pages'
             destination_dir: ./
